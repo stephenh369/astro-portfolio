@@ -1,0 +1,99 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Card from "../components/Card.astro";
+import Typewriter from "../components/Typewriter.jsx";
+import croppedHead from "../../public/assets/cropped-head-no-neck.png";
+---
+
+<Layout title="Stephen Herd - Software Developer">
+  <main class="flex flex-col justify-center items-center m-auto py-20 px-8 text-white">
+    <h1 class="font-bold text-center mb-4">
+      Hi, I'm <span
+        class="bg-gradient-to-r from-sky-500 to-indigo-900 text-transparent bg-clip-text"
+        >Stevo.</span>
+    </h1>
+    <img src={croppedHead.src} alt="stevo-head-img" width="64" class="mb-8"/>
+    <div class="hero w-full mb-8 bg-black border-white/50 border rounded-lg">
+      <div class="mac-button-container px-6 py-1">
+        <button class="mac-button red"></button>
+        <button class="mac-button yellow"></button>
+        <button class="mac-button green"></button>
+      </div>
+
+      <div class="typewriter-container w-full mb-4 py-8 px-6 bg-black border-t border-white/50">
+        <Typewriter
+          words={[
+            "software developer.",
+            "content creator.",
+            "car enthusiast.",
+            "gamer.",
+            "music enjoyer.",
+          ]}
+          client:load
+        />
+      </div>
+    </div>
+    <ul role="list" class="link-card-grid grid md:grid-cols-2 w-full gap-8 p-0">
+      <Card
+        href="/about"
+        title="About Me"
+        body="Who am I? Find out here."
+      />
+      <Card
+        href="/portfolio"
+        title="Portfolio"
+        body="Some of my projects."
+      />
+      <Card
+        href="/blog"
+        title="YouTube/Blog"
+        body="Where I talk about things."
+      />
+      <Card
+        href="/contact"
+        title="Contact"
+        body="Hello friend."
+      />
+    </ul>
+  </main>
+</Layout>
+
+<style>
+  main {
+    width: 800px;
+    max-width: calc(100% - 2rem);
+    font-size: 20px;
+    line-height: 1.6;
+    @media screen and (min-width: 1024px) {
+      height: 90vh;
+    }
+    @media screen and (max-height: 768px) {
+      height: 100%;
+    }
+    @media screen and (min-width: 768px) and (min-height: 768px) {
+      height: 95vh;
+    }
+  }
+  h1 {
+    font-size: 4rem;
+    line-height: 4.5rem;
+  }
+  .mac-button {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 4px;
+  }
+
+  .mac-button.red {
+    background-color: #ff5f56;
+  }
+
+  .mac-button.yellow {
+    background-color: #ffbd2e;
+  }
+
+  .mac-button.green {
+    background-color: #27c93f;
+  }
+</style>
