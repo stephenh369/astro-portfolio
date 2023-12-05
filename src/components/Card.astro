@@ -1,27 +1,31 @@
 ---
 interface Props {
 	title: string;
-	body: string;
+	body?: string;
 	href: string;
+	imgUrl?: string;
 }
 
-const { href, title, body } = Astro.props;
+const { href, title, body, imgUrl } = Astro.props;
 ---
 
 <li class="link-card flex items-center hover:focus:active:bg-green-500">
-	<a href={href}>
-		<h2 class="text-green-500">
-			{title}
-		</h2>
-		<p class="hover:focus:active:text-black">
-			{body}
-		</p>
-	</a> <span class="pr-6">&rarr;</span>
+	<a href={href} class="flex items-center h-full justify-between gap-8">
+		<div class="flex flex-col">
+			<h2 class={`text-green-500 ${imgUrl && 'text-center'}`}>
+				{title}
+			</h2>
+			<p class="hover:focus:active:text-black">
+				{imgUrl && <img src={imgUrl} alt="card img" class="" />}
+				{body}
+			</p>
+		</div> <span>&rarr;</span>
+	</a>
+	
 </li>
 <style>
 	.link-card {
 		list-style: none;
-		display: flex;
 		padding: 1px;
 		background-color: #23262d;
 		border-radius: 7px;		

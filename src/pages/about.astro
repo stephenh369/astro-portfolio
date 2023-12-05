@@ -1,23 +1,60 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import croppedFirstVideoFace from "../../public/assets/first-vid-img-no-bg.png";
+import croppedFunnyThumbnailFace from "../../public/assets/funny-thumbnail-face-no-bg.png";
+import reactSynth from "../../public/assets/react-synth.png";
+import Card from "../components/Card.astro";
 ---
 
 <Layout title="About">
-<div class="px-4 md:px-8 py-8"><a class="text-green-500 hover:text-white text-2xl" href="/"><span class="pr-2">&larr;</span>Back</a></div>
-  <div class="flex container bg-container/40 shadow-primary rounded-lg mx-auto my-48 items-center justify-center">
-    <section class="text-white px-8">
-      <h1 class="lg:text-5xl text-4xl text-green-500 text-center my-4">About Me</h1>
-      <p class="pl-8 my-4 py-4">
-        Hey! I'm Stephen. I'm a web developer from Scotland, UK. Currently working in the industry as a front-end software engineer. I also have a YouTube channel, where I post videos from time to time about dev stuff.
-      </p>
-    </section>
-    <section>
+  <main class="px-4 md:px-8 md:py-8 pt-8 pb-24 m-auto text-white">
+    <a class="text-green-500 hover:text-white text-2xl" href="/"
+      ><span class="pr-2">&larr;</span>Back</a
+    >
+    <div
+      class="flex container bg-container/40 shadow-primary rounded-lg mx-auto my-24 items-center justify-center"
+    >
+      <section
+        class="text-white px-8 sm:pl-16 sm:pr-8 flex flex-col sm:flex-row justify-between"
+      >
+        <div>
+          <h1 class="lg:text-5xl text-4xl text-green-500 text-center pt-8 pb-4">
+            About Me
+          </h1>
+          <p class="md:pl-8 pb-8 leading-relaxed">
+            Hey! I'm Stephen. I'm a web-based software developer from Scotland,
+            UK. Currently working as a full-stack software developer. I also
+            have a YouTube channel, where I post videos from time to time about
+            dev stuff.
+          </p>
+        </div>
+
         <img
           src={croppedFirstVideoFace.src}
           alt="Picture of face"
-          class="mx-auto"
+          class="m-auto h-1/2 w-1/2 lg:h-full sm:inline-block hidden"
+        />
+        <img
+          src={croppedFunnyThumbnailFace.src}
+          alt="Picture of face"
+          class="m-auto w-64 inline-block sm:hidden"
         />
       </section>
-  </div>
+    </div>
+    <ul
+      role="list"
+      class="link-card-grid grid sm:grid-cols-2 md:grid-cols-3 w-full gap-8 container mx-auto"
+    >
+      <Card href="/portfolio" title="Portfolio" imgUrl={reactSynth.src} />
+      <Card href="/blog" title="YouTube/Blog" />
+      <Card href="/contact" title="Contact" />
+    </ul>
+  </main>
 </Layout>
+
+<style>
+  main {
+    width: 992px;
+    max-width: calc(100% - 2rem);
+  }
+</style>
