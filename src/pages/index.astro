@@ -6,12 +6,14 @@ import croppedHead from "../../public/assets/cropped-head-no-neck.png";
 ---
 
 <Layout title="Stephen Herd - Software Developer">
-  <main class="flex flex-col justify-center items-center m-auto pb-24 pt-20 md:py-20 px-8 text-white">
-    <h1 class="font-bold text-center mb-4">
-      Hi, I'm <span
-        class="bg-gradient-to-r from-sky-500 to-indigo-900 text-transparent bg-clip-text"
-        >Stevo.</span>
-    </h1>
+  <main transition:animate="slide" class="flex flex-col justify-center items-center m-auto pb-24 pt-20 md:py-20 px-8 text-white">
+    <div class="speech-bubble relative bg-black/40 px-4 my-2 backdrop-filter backdrop-blur-sm shadow-2xl rounded-2xl">
+      <h1 class="font-bold text-center mb-4">
+        Hi, I'm <span
+          class="bg-gradient-to-r from-sky-500 to-indigo-900 text-transparent bg-clip-text"
+          >Stevo.</span>
+      </h1>
+    </div>  
     <img src={croppedHead.src} alt="stevo-head-img" width="64" class="mb-8"/>
     <div class="hero w-full mb-8 bg-black border-white/50 border rounded-lg">
       <div class="mac-button-container px-6 py-1">
@@ -95,5 +97,33 @@ import croppedHead from "../../public/assets/cropped-head-no-neck.png";
 
   .mac-button.green {
     background-color: #27c93f;
+  }
+
+  /* .speech-bubble::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border: 20px solid transparent;
+    border-bottom-color: #f9f9f9;
+    border-top: 0;
+    border-left: 0;
+    margin-left: -10px;
+    margin-top: -20px;
+  } */
+
+  .speech-bubble::after {
+    content: "";
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    border-left: 24px solid rgba(0, 0, 0, 0.3);
+    border-right: 12px solid transparent;
+    border-top: 12px solid rgba(0, 0, 0, 0.3);
+    border-bottom: 20px solid transparent;
+    right: 33px;
+    bottom: -32px;
   }
 </style>

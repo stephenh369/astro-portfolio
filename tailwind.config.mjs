@@ -13,10 +13,14 @@ export default {
 				}
 			  },
 			  colors: {
-				'container': '#23262d'
+				'container': '#23262d',
+				'background': '#13151a'
 			  },
 			  boxShadow: {
 				'primary': '0 0 1px 1px rgba(255,255,255,0.1)'
+			  },
+			  backgroundImage: {
+				'primary': "url('./public/assets/bg.jpg')"
 			  }
 		},
 	},

@@ -7,12 +7,12 @@ import Card from "../components/Card.astro";
 ---
 
 <Layout title="About">
-  <main class="px-4 md:px-8 md:py-8 pt-8 pb-24 m-auto text-white">
-    <a class="text-green-500 hover:text-white text-2xl" href="/"
+  <main transition:animate="slide" class="flex flex-col justify-center px-4 md:px-8 pt-8 pb-24 m-auto text-white">
+    <a class="text-green-500 hover:text-white text-2xl" href="#" onclick="history.back()"
       ><span class="pr-2">&larr;</span>Back</a
     >
     <div
-      class="flex container bg-container/40 shadow-primary rounded-lg mx-auto my-24 items-center justify-center"
+      class="flex container bg-container/40 backdrop-filter backdrop-blur-sm shadow-primary rounded-lg mx-auto my-24 items-center justify-center"
     >
       <section
         class="text-white px-8 sm:pl-16 sm:pr-8 flex flex-col sm:flex-row justify-between"
@@ -56,5 +56,14 @@ import Card from "../components/Card.astro";
   main {
     width: 992px;
     max-width: calc(100% - 2rem);
+    @media screen and (min-width: 1024px) {
+      height: 90vh;
+    }
+    @media screen and (max-height: 768px) {
+      height: 100%;
+    }
+    @media screen and (min-width: 768px) and (min-height: 768px) {
+      height: 95vh;
+    }
   }
 </style>
