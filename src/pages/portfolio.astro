@@ -1,0 +1,69 @@
+---
+import Layout from "../layouts/Layout.astro";
+import reactSynth from "../../public/assets/react-synth.png";
+import dobble from "../../public/assets/dobble.png";
+import engineRoom from "../../public/assets/engine-room.png";
+import ProjectSelector from "../components/ProjectSelector";
+
+const projects = [
+  {
+    title: "React Synth",
+    description: `This project was the result of my collaboration with <a
+        class="text-blue-400"
+        href="https://www.linkedin.com/in/james-clarkson97/"
+        target="_blank"
+        rel="noreferrer">James Clarkson</a
+      > during my studies at CodeClan, Edinburgh. This is a synthesiser
+      and sequencer web app which uses the React framework, coupled with
+      the Tone.js library and Express/MongoDB backend. Given our 1 week
+      deadline and being brand new to React, I think we did pretty well
+      with this. It even supports MIDI!`,
+    img: reactSynth.src,
+    link: "https://github.com/stephenh369/React_Synthesiser_app",
+  },
+  {
+    title: "Dobble",
+    description: `This project was a result of the joint effort between myself, <a class="text-blue-400" href="https://www.linkedin.com/in/t-nawrocki/" target="_blank" rel="noreferrer">Tomek Nawrocki</a>, <a class="text-blue-400" href="https://www.linkedin.com/in/helena-kolberg/" target="_blank" rel="noreferrer">Helena Kolberg</a> and <a class="text-blue-400" href="https://www.linkedin.com/in/rudolf-zachar/" target="_blank" rel="noreferrer">Rudolf Zachar</a>. This is a browser game adaption of the popular family card game Dobble (Spot It! in the US). The player must match the symbols on both cards as quickly as possible before the time expires. It was built in a week during my studies at CodeClan, using a combination of Vue.js, Express and MongoDB.`,
+    img: dobble.src,
+    link: "https://github.com/stephenh369/dobble",
+  },
+  {
+    title: "The Engine Room",
+    description: `This was my first personal project I created while I was studying at CodeClan. It is a simple CRUD app (Create, Read, Update, Delete) that models a interactive database for a car dealership. This web app was created using the Sinatra, the Ruby framework, coupled with a PostgresSQL database.`,
+    img: engineRoom.src,
+    link: "https://github.com/stephenh369/the_engine_room",
+  },
+];
+---
+
+<Layout title="Portfolio">
+  <main
+    transition:animate="slide"
+    class="flex flex-col justify-center px-4 md:px-8 pt-8 pb-24 m-auto text-white"
+  >
+    <div>
+      <a
+        class="text-green-500 hover:text-white text-2xl inline"
+        href="#"
+        onclick="history.back()"><span class="pr-2">&larr;</span>Back</a
+      >
+    </div>
+    <ProjectSelector projects={projects} client:load />
+  </main>
+</Layout>
+
+<style>
+  main {
+    width: 992px;
+    max-width: calc(100% - 2rem);
+    @media screen and (min-width: 1024px) {
+      height: 90vh;
+    }
+    @media screen and (max-height: 768px) {
+      height: 100%;
+    }
+    @media screen and (min-width: 768px) and (min-height: 768px) {
+      height: 95vh;
+    }
+  }
+</style>
