@@ -17,7 +17,7 @@ import Nav from "../components/Nav.astro";
         class="text-white px-8 sm:pl-16 sm:pr-8 flex flex-col sm:flex-row justify-between"
       >
         <div>
-          <h1 class="lg:text-5xl text-4xl text-green-500 text-center pt-8 pb-4">
+          <h1 class="lg:text-5xl text-4xl text-green-500 text-center font-semibold pt-8 pb-4">
             About Me
           </h1>
           <p class="md:pl-8 pb-8 leading-relaxed">
@@ -47,10 +47,11 @@ import Nav from "../components/Nav.astro";
       <Card
         href="/portfolio"
         title="Portfolio"
+        titleClass="text-center"
         imgUrl="/assets/react-synth.png"
       />
-      <Card href="/blog" title="YouTube/Blog" />
-      <Card href="/contact" title="Contact" />
+      <Card href="/blog" title="YouTube/Blog" titleClass="text-center" imgUrl="/assets/youtube-logo.png" />
+      <Card href="/contact" title="Contact" body="👋" titleClass="text-center" bodyClass="text-icon-64 hidden sm:inline-block"/>
     </ul>
   </main>
 </Layout>

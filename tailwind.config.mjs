@@ -21,6 +21,9 @@ export default {
 			  },
 			  backgroundImage: {
 				'primary': "url('./assets/bg.jpg')"
+			  },
+			  fontSize: {
+				'icon-64': ['4rem', { lineHeight: '1' }]
 			  }
 		},
 	},

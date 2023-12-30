@@ -40,7 +40,7 @@ const ProjectSelector: React.FC<ProjectSelectorProps> = ({ projects }) => {
       <div className="flex container bg-container/40 backdrop-filter backdrop-blur-sm shadow-primary rounded-lg mx-auto mt-24 mb-8 items-center justify-center">
         <section className="text-white px-8 sm:pl-16 sm:pr-8 flex flex-col sm:flex-row justify-between">
           <div>
-            <h1 className="lg:text-5xl text-4xl text-green-500 text-center pt-8 pb-4">
+            <h1 className="lg:text-5xl text-4xl text-green-500 text-center font-semibold pt-8 pb-4">
               {projects[selectedProject].title}
             </h1>
             <p

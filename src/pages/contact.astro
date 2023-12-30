@@ -14,7 +14,7 @@ import Nav from "../components/Nav.astro";
       class="flex container bg-container/40 backdrop-filter backdrop-blur-sm shadow-primary rounded-lg mx-auto my-24 items-center justify-center"
     >
       <section class="text-white px-12 sm:px-24 lg:px-36 flex flex-col w-full">
-        <h1 class="lg:text-5xl text-4xl text-center font-semibold pt-8 pb-4">
+        <h1 class="text-green-500 lg:text-5xl text-4xl text-center font-semibold pt-8 pb-4">
           Contact Me
         </h1>
         <p class="text-center">Want to ask me something? Ask away.</p>
@@ -62,13 +62,14 @@ import Nav from "../components/Nav.astro";
       role="list"
       class="link-card-grid grid sm:grid-cols-2 md:grid-cols-3 w-full gap-8 container mx-auto"
     >
-      <Card href="/about" title="About" />
+      <Card href="/about" title="About" titleClass="text-center" imgUrl="/assets/first-vid-img-no-bg.png"/>
       <Card
         href="/portfolio"
         title="Portfolio"
+        titleClass="text-center"
         imgUrl="/assets/react-synth.png"
       />
-      <Card href="/blog" title="YouTube/Blog" />
+      <Card href="/blog" title="YouTube/Blog" titleClass="text-center" imgUrl="/assets/youtube-logo.png" />
     </ul>
   </main>
 </Layout>
