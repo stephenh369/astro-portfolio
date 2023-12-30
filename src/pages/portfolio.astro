@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import ProjectSelector from "../components/ProjectSelector";
+import Card from "../components/Card.astro";
 import Nav from "../components/Nav.astro";
 
 const projects = [
@@ -41,6 +42,30 @@ const projects = [
   >
     <Nav />
     <ProjectSelector projects={projects} client:load />
+    <ul
+      role="list"
+      class="link-card-grid grid sm:grid-cols-2 md:grid-cols-3 w-full gap-8 container mx-auto"
+    >
+      <Card
+        href="/about"
+        title="About"
+        titleClass="text-center"
+        imgUrl="/assets/first-vid-img-no-bg.png"
+      />
+      <Card
+        href="/blog"
+        title="YouTube/Blog"
+        titleClass="text-center"
+        imgUrl="/assets/youtube-logo.png"
+      />
+      <Card
+        href="/contact"
+        title="Contact"
+        body="👋"
+        titleClass="text-center"
+        bodyClass="text-icon-64 hidden sm:inline-block"
+      />
+    </ul>
   </main>
 </Layout>
 
@@ -48,14 +73,5 @@ const projects = [
   main {
     width: 992px;
     max-width: calc(100% - 2rem);
-    @media screen and (min-width: 1024px) {
-      height: 90vh;
-    }
-    @media screen and (max-height: 768px) {
-      height: 100%;
-    }
-    @media screen and (min-width: 768px) and (min-height: 768px) {
-      height: 95vh;
-    }
   }
 </style>

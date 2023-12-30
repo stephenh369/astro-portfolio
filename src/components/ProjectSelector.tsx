@@ -20,7 +20,7 @@ const ProjectSelector: React.FC<ProjectSelectorProps> = ({ projects }) => {
 
   return (
     <div>
-      <ul className="grid md:grid-cols-3 w-full gap-8 pt-8 container mx-auto">
+      <ul className="grid md:grid-cols-3 w-full gap-8 mt-16 container mx-auto">
         {projects.map((project, index) => (
           <li
             key={index}
@@ -37,7 +37,7 @@ const ProjectSelector: React.FC<ProjectSelectorProps> = ({ projects }) => {
           </li>
         ))}
       </ul>
-      <div className="flex container bg-container/40 backdrop-filter backdrop-blur-sm shadow-primary rounded-lg mx-auto mt-24 mb-8 items-center justify-center">
+      <div className="flex container bg-container/40 backdrop-filter backdrop-blur-sm shadow-primary rounded-lg mx-auto mt-12 mb-24 items-center justify-center">
         <section className="text-white px-8 sm:pl-16 sm:pr-8 flex flex-col sm:flex-row justify-between">
           <div>
             <h1 className="lg:text-5xl text-4xl text-green-500 text-center font-semibold pt-8 pb-4">
