@@ -20,7 +20,7 @@ export default {
 				'primary': '0 0 1px 1px rgba(255,255,255,0.1)'
 			  },
 			  backgroundImage: {
-				'primary': "url('./public/assets/bg.jpg')"
+				'primary': "url('./assets/bg.jpg')"
 			  }
 		},
 	},

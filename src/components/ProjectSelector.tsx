@@ -31,7 +31,7 @@ const ProjectSelector: React.FC<ProjectSelectorProps> = ({ projects }) => {
               }
             }}
             className="flex items-center cursor-pointer list-none rounded-lg p-4 shadow-primary bg-container/40 backdrop-filter backdrop-blur-sm hover:bg-green-500 hover:text-black focus:bg-green-500 focus:text-black active:bg-green-500 active:text-black"
-            tabIndex="0"
+            tabIndex={0}
           >
             {project.title}
           </li>
