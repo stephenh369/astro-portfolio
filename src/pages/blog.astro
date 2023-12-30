@@ -1,0 +1,52 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Card from "../components/Card.astro";
+import Nav from "../components/Nav.astro";
+---
+
+<Layout title="Blog">
+  <main
+    transition:animate="slide"
+    class="flex flex-col justify-center px-4 md:px-8 pt-8 pb-24 m-auto text-white"
+  >
+    <Nav />
+    <div
+      class="flex container bg-container/40 backdrop-filter backdrop-blur-sm shadow-primary rounded-lg mx-auto my-24 items-center justify-center"
+    >
+      <section class="text-white px-12 sm:px-24 lg:px-36 flex flex-col w-full">
+
+      </section>
+    </div>
+    <ul
+      role="list"
+      class="link-card-grid grid sm:grid-cols-2 md:grid-cols-3 w-full gap-8 container mx-auto"
+    >
+      <Card
+        href="/about"
+        title="About"
+        titleClass="text-center"
+        imgUrl="/assets/first-vid-img-no-bg.png"
+      />
+      <Card
+        href="/portfolio"
+        title="Portfolio"
+        titleClass="text-center"
+        imgUrl="/assets/react-synth.png"
+      />
+      <Card
+        href="/contact"
+        title="Contact"
+        body="👋"
+        titleClass="text-center"
+        bodyClass="text-icon-64 hidden sm:inline-block"
+      />
+    </ul>
+  </main>
+</Layout>
+
+<style>
+  main {
+    width: 992px;
+    max-width: calc(100% - 2rem);
+  }
+</style>
