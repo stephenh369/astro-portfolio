@@ -1,0 +1,122 @@
+---
+import fetchApi from "../lib/strapi";
+import type Article from "../interfaces/article";
+import Layout from "../layouts/Layout.astro";
+import Card from "../components/Card.astro";
+import Nav from "../components/Nav.astro";
+import ArticleCard from "../components/ArticleCard.tsx";
+import Pagination from "../components/Pagination.tsx";
+
+let page = 1;
+const limit = 100;
+const start = (page - 1) * limit;
+const paginationQuery = {
+  populate: "*",
+  sort: "publishedAt:desc",
+  _limit: limit,
+  _start: start,
+};
+const articles = await fetchApi<Article[]>({
+  endpoint: `articles?populate=${paginationQuery.populate}&sort=${paginationQuery.sort}&pagination[start]=${paginationQuery._start}&pagination[limit]=${paginationQuery._limit}`,
+  wrappedByKey: "data",
+});
+
+const mostRecentArticles = articles.slice(0, 3);
+const archiveArticles = articles.length > 3 ? articles.slice(3) : [];
+const itemsPerPage = 4;
+---
+
+<Layout title="Blog">
+  <main
+    transition:animate="slide"
+    class="flex flex-col justify-center px-4 md:px-8 pt-8 pb-24 m-auto text-white"
+  >
+    <Nav />
+    <div class="flex container mx-auto my-24 items-center justify-center">
+      <section
+        class="text-white px-12 lg:px-16 xl:px-24 flex flex-col lg:flex-row w-full"
+      >
+        <ul
+          role="list"
+          class="grid lg:grid-rows-2 grid-cols-1 lg:grid-cols-2 gap-4 container mx-auto"
+        >
+          {
+            mostRecentArticles.map((article, index) => {
+              if (index === 0) {
+                return (
+                  <ArticleCard
+                    href={`blog/${article.attributes.slug}`}
+                    title={article.attributes.title}
+                    titleClass="text-center lg:text-4xl text-3xl"
+                    thumbnailUrl={`${import.meta.env.STRAPI_URL}${
+                      article.attributes.thumbnail.data.attributes.url
+                    }`}
+                    description={article.attributes.description}
+                    descriptionClass="text-center"
+                    mostRecentClass="div1"
+                  />
+                );
+              } else if (index === 1 || index === 2) {
+                return (
+                  <ArticleCard
+                    href={`blog/${article.attributes.slug}`}
+                    title={article.attributes.title}
+                    titleClass="text-center text-3xl"
+                    thumbnailUrl={`${import.meta.env.STRAPI_URL}${
+                      article.attributes.thumbnail.data.attributes.url
+                    }`}
+                    description={article.attributes.description}
+                    descriptionClass="text-center"
+                    mostRecentClass={`div${index + 1}`}
+                  />
+                );
+              }
+            })
+          }
+        </ul>
+        {
+          archiveArticles.length > 0 && (
+            <aside class="flex flex-col justify-between items-center mt-8 lg:ml-8 lg:mt-0">
+              <Pagination
+                client:load
+                articles={archiveArticles}
+                itemsPerPage={itemsPerPage}
+              />
+            </aside>
+          )
+        }
+      </section>
+    </div>
+    <ul
+      role="list"
+      class="link-card-grid grid sm:grid-cols-2 md:grid-cols-3 w-full gap-2 container mx-auto max-w-5xl"
+    >
+      <Card
+        href="/about"
+        title="About"
+        titleClass="text-center"
+        imgUrl="/assets/first-vid-img-no-bg.png"
+      />
+      <Card
+        href="/portfolio"
+        title="Portfolio"
+        titleClass="text-center"
+        imgUrl="/assets/react-synth.png"
+      />
+      <Card
+        href="/contact"
+        title="Contact"
+        body="👋"
+        titleClass="text-center"
+        bodyClass="text-icon-64 hidden sm:inline-block"
+      />
+    </ul>
+  </main>
+</Layout>
+
+<style>
+  main {
+    max-width: calc(100% - 2rem);
+  }
+</style>
+ ../components/ArticleCard.tsx
