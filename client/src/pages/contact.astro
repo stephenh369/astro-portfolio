@@ -71,16 +71,16 @@ import Nav from "../components/Nav.astro";
         imgUrl="/assets/first-vid-img-no-bg.png"
       />
       <Card
-        href="/portfolio"
-        title="Portfolio"
-        titleClass="text-center"
-        imgUrl="/assets/react-synth.png"
-      />
-      <Card
         href="/blog"
         title="YouTube/Blog"
         titleClass="text-center"
         imgUrl="/assets/youtube-logo.png"
+      />
+      <Card
+        href="/portfolio"
+        title="Portfolio"
+        titleClass="text-center"
+        imgUrl="/assets/react-synth.png"
       />
     </ul>
   </main>
@@ -90,5 +90,8 @@ import Nav from "../components/Nav.astro";
   main {
     width: 992px;
     max-width: calc(100% - 2rem);
+    @media screen and (min-height: 1080px) {
+      height: 90vh;
+    }
   }
 </style>
