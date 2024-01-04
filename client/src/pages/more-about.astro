@@ -5,7 +5,7 @@ import Nav from "../components/Nav.astro";
 import fetchApi from "../lib/strapi";
 import type Bio from "../interfaces/bio";
 
-  const bio = await fetchApi<Bio[]>({
+const bio = await fetchApi<Bio[]>({
   endpoint: "bios",
   wrappedByKey: "data",
 });
@@ -14,29 +14,47 @@ import type Bio from "../interfaces/bio";
 <Layout title="More About Me">
   <main
     transition:animate="slide"
-    class="flex flex-col justify-center px-4 md:px-8 pt-8 pb-24 m-auto text-white"
+    class="flex flex-col justify-center px-4 lg:px-8 pt-8 pb-24 m-auto text-white"
   >
     <Nav />
     <div
       class="flex container bg-container/40 backdrop-filter backdrop-blur-sm shadow-primary rounded-lg mx-auto my-24 items-center justify-center"
     >
       <section
-        class="text-white px-8 py-8 sm:pl-16 sm:pr-8 flex flex-col sm:flex-row justify-between"
+        class="text-white px-8 sm:px-12 py-8 flex flex-col lg:flex-row justify-between"
       >
-        <div class="flex flex-col items-center">
-          <p class="leading-relaxed" set:html={bio[0].attributes.content} />
-        </div>
-
-        <!-- <img
-          src="/assets/first-vid-img-no-bg.png"
-          alt="Picture of face"
-          class="m-auto h-1/2 w-1/2 lg:h-full sm:inline-block hidden"
-        />
-        <img
-          src="/assets/funny-thumbnail-face-no-bg.png"
-          alt="Picture of face"
-          class="m-auto w-64 inline-block sm:hidden"
-        /> -->
+        {
+          !bio[0].attributes.content_blocks && (
+            <div class="flex flex-col items-center">
+              <p class="leading-relaxed" set:html={bio[0].attributes.content} />
+            </div>
+          )
+        }
+        {
+          bio[0].attributes.content_blocks && (
+            <div class="flex flex-col gap-8">
+              {bio[0].attributes.content_blocks.map((block) => {
+                if (block.image) {
+                  return (
+                    <img
+                      class="mx-auto"
+                      src={`${import.meta.env.STRAPI_URL}${
+                        block.image.formats.small.url
+                      }`}
+                      alt={block.image.alternativeText}
+                    />
+                  );
+                } else
+                  return (
+                    <p
+                      class="leading-relaxed"
+                      set:html={block.children[0].text}
+                    />
+                  );
+              })}
+            </div>
+          )
+        }
       </section>
     </div>
     <ul
@@ -69,7 +87,7 @@ import type Bio from "../interfaces/bio";
 
 <style>
   main {
-    width: 992px;
+    width: 1024px;
     max-width: calc(100% - 2rem);
   }
 </style>

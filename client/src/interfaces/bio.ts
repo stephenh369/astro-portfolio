@@ -1,3 +1,5 @@
+import type Image from "./image";
+
 export default interface Bio {
   id: number;
   attributes: {
@@ -5,5 +7,12 @@ export default interface Bio {
     createdAt: string;
     updatedAt: string;
     publishedAt: string;
+    content_blocks: [
+      {
+        type: string;
+        children: [{ type: string; text: string }];
+        image?: Image;
+      }
+    ];
   };
 }
