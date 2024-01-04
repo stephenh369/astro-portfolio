@@ -2,9 +2,16 @@
 import Layout from "../layouts/Layout.astro";
 import Card from "../components/Card.astro";
 import Nav from "../components/Nav.astro";
+import fetchApi from "../lib/strapi";
+import type Bio from "../interfaces/bio";
+
+  const bio = await fetchApi<Bio[]>({
+  endpoint: "bios",
+  wrappedByKey: "data",
+});
 ---
 
-<Layout title="About Me">
+<Layout title="More About Me">
   <main
     transition:animate="slide"
     class="flex flex-col justify-center px-4 md:px-8 pt-8 pb-24 m-auto text-white"
@@ -14,24 +21,13 @@ import Nav from "../components/Nav.astro";
       class="flex container bg-container/40 backdrop-filter backdrop-blur-sm shadow-primary rounded-lg mx-auto my-24 items-center justify-center"
     >
       <section
-        class="text-white px-8 sm:pl-16 sm:pr-8 flex flex-col sm:flex-row justify-between"
+        class="text-white px-8 py-8 sm:pl-16 sm:pr-8 flex flex-col sm:flex-row justify-between"
       >
         <div class="flex flex-col items-center">
-          <h1
-            class="lg:text-5xl text-4xl text-green-500 text-center font-semibold pt-8 pb-4"
-          >
-            About Me
-          </h1>
-          <p class="md:pl-8 leading-relaxed">
-            Hey! I'm Stephen. I'm a web-based software developer from Scotland,
-            UK. Currently working as a full-stack software developer. I also
-            have a YouTube channel, where I post videos from time to time about
-            dev stuff.
-          </p>
-          <a href="/more-about" class="p-4 text-blue-400">Read More</a>
+          <p class="leading-relaxed" set:html={bio[0].attributes.content} />
         </div>
 
-        <img
+        <!-- <img
           src="/assets/first-vid-img-no-bg.png"
           alt="Picture of face"
           class="m-auto h-1/2 w-1/2 lg:h-full sm:inline-block hidden"
@@ -40,7 +36,7 @@ import Nav from "../components/Nav.astro";
           src="/assets/funny-thumbnail-face-no-bg.png"
           alt="Picture of face"
           class="m-auto w-64 inline-block sm:hidden"
-        />
+        /> -->
       </section>
     </div>
     <ul
@@ -75,14 +71,5 @@ import Nav from "../components/Nav.astro";
   main {
     width: 992px;
     max-width: calc(100% - 2rem);
-    @media screen and (min-width: 1024px) {
-      height: 90vh;
-    }
-    @media screen and (max-height: 768px) {
-      height: 100%;
-    }
-    @media screen and (min-width: 768px) and (min-height: 768px) {
-      height: 95vh;
-    }
   }
 </style>

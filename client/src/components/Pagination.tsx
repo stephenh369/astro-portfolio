@@ -11,14 +11,16 @@ interface PaginationProps {
 
 const Pagination: FC<PaginationProps> = ({ articles, itemsPerPage }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  let currentPageRef = useRef(null);
+  const currentPageRef = useRef<null | HTMLDivElement>(null);
   const totalPages = Math.ceil(articles.length / itemsPerPage);
 
   const handlePageChange = (page: number) => {
-    if (currentPage > totalPages) {
-      currentPageRef.current.style.animation = "prevPage .5s forwards";
-    } else {
-      currentPageRef.current.style.animation = "nextPage .5s forwards";
+    if (currentPageRef.current) {
+      if (currentPage > totalPages) {
+        currentPageRef.current.style.animation = "prevPage .5s forwards";
+      } else {
+        currentPageRef.current.style.animation = "nextPage .5s forwards";
+      }
     }
     setCurrentPage(page);
   };
