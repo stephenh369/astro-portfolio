@@ -12,7 +12,7 @@ const limit = 100;
 const start = (page - 1) * limit;
 const paginationQuery = {
   populate: "*",
-  sort: "publishedAt:desc",
+  sort: "video_upload_date:desc",
   _limit: limit,
   _start: start,
 };

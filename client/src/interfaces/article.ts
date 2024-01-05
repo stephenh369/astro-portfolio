@@ -1,4 +1,4 @@
-import type Image from './image';
+import type Image from "./image";
 
 interface Media {
   data: {
@@ -18,5 +18,14 @@ export default interface Article {
     createdAt: string;
     updatedAt: string;
     publishedAt: string;
+    content_blocks: [
+      {
+        type: string;
+        children: [{ type: string; text: string; bold?: boolean }];
+        image?: Image;
+      }
+    ];
+    video_upload_date: string;
+    video_link: string;
   };
 }

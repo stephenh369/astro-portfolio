@@ -16,9 +16,9 @@ export default interface Image {
   width: number;
   height: number;
   formats: {
-    thumbnail;
-    small;
-    medium;
+    thumbnail: Format;
+    small: Format;
+    medium: Format;
     large: Format;
   };
   hash: string;

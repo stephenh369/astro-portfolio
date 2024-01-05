@@ -1,14 +1,16 @@
 ---
-import fetchApi from '../../lib/strapi';
-import type Article from '../../interfaces/article';
-import Layout from '../../layouts/Layout.astro';
-import Nav from '../../components/Nav.astro';
-import Card from '../../components/Card.astro';
+import fetchApi from "../../lib/strapi";
+import type Article from "../../interfaces/article";
+import Layout from "../../layouts/Layout.astro";
+import Nav from "../../components/Nav.astro";
+import Card from "../../components/Card.astro";
+import { Debug } from "astro:components";
 
 export async function getStaticPaths() {
   const articles = await fetchApi<Article[]>({
-    endpoint: 'articles',
-    wrappedByKey: 'data',
+    endpoint: "articles",
+    query: { populate: "*" },
+    wrappedByKey: "data",
   });
 
   return articles.map((article) => ({
@@ -22,43 +24,102 @@ const article = Astro.props;
 ---
 
 <Layout title={article.attributes.title}>
-    <main
-      transition:animate="slide"
-      class="flex flex-col justify-center px-4 md:px-8 pt-8 pb-24 m-auto text-white"
+  <main
+    transition:animate="slide"
+    class="flex flex-col justify-center px-4 md:px-8 pt-8 pb-24 m-auto text-white"
+  >
+    <Nav />
+    <div
+      class="flex container bg-container/40 backdrop-filter backdrop-blur-sm shadow-primary rounded-lg mx-auto my-24 items-center justify-center"
     >
-      <Nav />
-      <div
-        class="flex container bg-container/40 backdrop-filter backdrop-blur-sm shadow-primary rounded-lg mx-auto my-24 items-center justify-center"
-      >
-        <section class="text-white px-12 sm:px-24 lg:px-36 flex flex-col w-full">
-            <h1>{article.attributes.title}</h1>
-            <p>{article.attributes.description}</p>
-            <p>{article.attributes.content}</p>
-        </section>
-      </div>
-      <ul
-        role="list"
-        class="link-card-grid grid sm:grid-cols-2 md:grid-cols-3 w-full gap-8 container mx-auto"
-      >
-        <Card
-          href="/about"
-          title="About"
-          titleClass="text-center"
-          imgUrl="/assets/first-vid-img-no-bg.png"
-        />
-        <Card
-          href="/portfolio"
-          title="Portfolio"
-          titleClass="text-center"
-          imgUrl="/assets/react-synth.png"
-        />
-        <Card
-          href="/contact"
-          title="Contact"
-          body="👋"
-          titleClass="text-center"
-          bodyClass="text-icon-64 hidden sm:inline-block"
-        />
-      </ul>
-    </main>
-  </Layout>
+      <section class="text-white px-8 sm:px-16 lg:px-24 flex flex-col w-full">
+        <div class="flex justify-center text-center pt-16">
+          <h1 class="lg:text-5xl text-4xl text-green-500">
+            {article.attributes.title}
+          </h1>
+        </div>
+        <div class="lg:px-24 md:px-8 py-8">
+          <a href={article.attributes.video_link} target="_blank"
+            ><img
+              src={`${import.meta.env.STRAPI_URL}${
+                article.attributes.thumbnail.data.attributes.url
+              }`}
+              alt={article.attributes.thumbnail.data.attributes.alternativeText}
+            /></a
+          >
+        </div>
+        <div class="flex gap-4 lg:px-24 md:px-8 pb-8">
+          <h4 class="text-xl">
+            Video Posted: <span class="text-green-500"
+              >{article.attributes.video_upload_date}</span
+            >
+          </h4>
+          <a
+            href={article.attributes.video_link}
+            target="_blank"
+            class="text-blue-400 text-xl hover:underline focus:underline"
+            >Link To Video</a
+          >
+        </div>
+        {
+          !article.attributes.content_blocks && (
+            <div class="flex flex-col items-center pb-16">
+              <p
+                class="leading-relaxed"
+                set:html={article.attributes.content}
+              />
+            </div>
+          )
+        }
+        {
+          article.attributes.content_blocks && (
+            <div class="flex flex-col gap-4 pb-16">
+              {article.attributes.content_blocks.map((block) => {
+                <Debug value={block} />;
+                if (block.image) {
+                  return (
+                    <img
+                      class="mx-auto"
+                      src={`${import.meta.env.STRAPI_URL}${
+                        block.image.formats.small.url
+                      }`}
+                      alt={block.image.alternativeText}
+                    />
+                  );
+                } else {
+                  return block.children.map((_) => {
+                    return <p class={_.bold ? "font-bold leading-relaxed": "leading-relaxed"} set:html={_.text} />;
+                  });
+                }
+              })}
+            </div>
+          )
+        }
+      </section>
+    </div>
+    <ul
+      role="list"
+      class="link-card-grid grid sm:grid-cols-2 md:grid-cols-3 w-full gap-8 container mx-auto"
+    >
+      <Card
+        href="/about"
+        title="About"
+        titleClass="text-center"
+        imgUrl="/assets/first-vid-img-no-bg.png"
+      />
+      <Card
+        href="/portfolio"
+        title="Portfolio"
+        titleClass="text-center"
+        imgUrl="/assets/react-synth.png"
+      />
+      <Card
+        href="/contact"
+        title="Contact"
+        body="👋"
+        titleClass="text-center"
+        bodyClass="text-icon-64 hidden sm:inline-block"
+      />
+    </ul>
+  </main>
+</Layout>

@@ -785,9 +785,12 @@ export interface ApiArticleArticle extends Schema.CollectionType {
       Attribute.SetMinMaxLength<{
         maxLength: 180;
       }>;
-    content: Attribute.Text;
     slug: Attribute.String & Attribute.Required;
     thumbnail: Attribute.Media;
+    content_blocks: Attribute.Blocks;
+    content: Attribute.RichText;
+    video_upload_date: Attribute.Date & Attribute.DefaultTo<'2024-01-01'>;
+    video_link: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

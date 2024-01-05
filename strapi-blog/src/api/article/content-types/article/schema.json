@@ -19,9 +19,6 @@
       "type": "text",
       "maxLength": 180
     },
-    "content": {
-      "type": "text"
-    },
     "slug": {
       "type": "string",
       "required": true
@@ -36,6 +33,19 @@
         "videos",
         "audios"
       ]
+    },
+    "content_blocks": {
+      "type": "blocks"
+    },
+    "content": {
+      "type": "richtext"
+    },
+    "video_upload_date": {
+      "type": "date",
+      "default": "2024-01-01"
+    },
+    "video_link": {
+      "type": "string"
     }
   }
 }
