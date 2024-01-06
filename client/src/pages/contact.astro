@@ -2,8 +2,26 @@
 import Layout from "../layouts/Layout.astro";
 import Card from "../components/Card.astro";
 import Nav from "../components/Nav.astro";
----
 
+const errors = { name: "", email: "", message: "" };
+if (Astro.request.method === "POST") {
+  try {
+    const data = await Astro.request.formData();
+    const name = data.get("name");
+    if (typeof name !== "string" || name.length < 1) {
+      errors.name += "Please enter a valid name.";
+    }
+    const hasErrors = Object.values(errors).some(msg => msg)
+    if (!hasErrors) {
+      return Astro.redirect("/confirmation");
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
+  }
+}
+---
 <Layout title="Contact">
   <main
     transition:animate="slide"
@@ -26,29 +44,33 @@ import Nav from "../components/Nav.astro";
           method="POST"
           data-netlify="true"
         >
-          <p class="">
+          <p>
             <label class="flex flex-col sm:flex-row items-center"
               >Name: <input
                 class="bg-transparent border-b mt-4 sm:ml-8 sm:mt-0 w-full"
                 type="text"
                 name="name"
+                required
               /></label
             >
           </p>
-          <p class="">
+          {errors.name && <p>{errors.name}</p>}
+          <p>
             <label class="flex flex-col sm:flex-row items-center"
               >Email: <input
                 class="bg-transparent border-b mt-4 sm:ml-10 sm:mt-0 w-full"
                 type="email"
                 name="email"
+                required
               /></label
             >
           </p>
-          <p class="">
+          <p>
             <label class="flex flex-col justify-center items-center"
               >Message: <textarea
                 class="bg-transparent border mt-4 w-full h-24"
-                name="message"></textarea></label
+                name="message"
+                required></textarea></label
             >
           </p>
           <p class="flex flex-col justify-center">

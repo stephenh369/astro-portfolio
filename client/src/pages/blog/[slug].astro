@@ -6,24 +6,20 @@ import Nav from "../../components/Nav.astro";
 import Card from "../../components/Card.astro";
 import { Debug } from "astro:components";
 
-export async function getStaticPaths() {
-  const articles = await fetchApi<Article[]>({
-    endpoint: "articles",
-    query: { populate: "*" },
-    wrappedByKey: "data",
-  });
+const articles = await fetchApi<Article[]>({
+  endpoint: "articles",
+  query: { populate: "*" },
+  wrappedByKey: "data",
+});
 
-  return articles.map((article) => ({
-    params: { slug: article.attributes.slug },
-    props: article,
-  }));
-}
+const { slug } = Astro.params;
+const article = articles.find((article) => article.attributes.slug === slug);
+if (!article) return Astro.redirect("/404");
 type Props = Article;
-
-const article = Astro.props;
+const { attributes } = article;
 ---
 
-<Layout title={article.attributes.title}>
+<Layout title={attributes.title}>
   <main
     transition:animate="slide"
     class="flex flex-col justify-center px-4 md:px-8 pt-8 pb-24 m-auto text-white"
@@ -35,46 +31,43 @@ const article = Astro.props;
       <section class="text-white px-8 sm:px-16 lg:px-24 flex flex-col w-full">
         <div class="flex justify-center text-center pt-16">
           <h1 class="lg:text-5xl text-4xl text-green-500">
-            {article.attributes.title}
+            {attributes.title}
           </h1>
         </div>
         <div class="lg:px-24 md:px-8 py-8">
-          <a href={article.attributes.video_link} target="_blank"
+          <a href={attributes.video_link} target="_blank"
             ><img
               src={`${import.meta.env.STRAPI_URL}${
-                article.attributes.thumbnail.data.attributes.url
+                attributes.thumbnail.data.attributes.url
               }`}
-              alt={article.attributes.thumbnail.data.attributes.alternativeText}
+              alt={attributes.thumbnail.data.attributes.alternativeText}
             /></a
           >
         </div>
         <div class="flex gap-4 lg:px-24 md:px-8 pb-8">
           <h4 class="text-xl">
             Video Posted: <span class="text-green-500"
-              >{article.attributes.video_upload_date}</span
+              >{attributes.video_upload_date}</span
             >
           </h4>
           <a
-            href={article.attributes.video_link}
+            href={attributes.video_link}
             target="_blank"
             class="text-blue-400 text-xl hover:underline focus:underline"
             >Link To Video</a
           >
         </div>
         {
-          !article.attributes.content_blocks && (
+          !attributes.content_blocks && (
             <div class="flex flex-col items-center pb-16">
-              <p
-                class="leading-relaxed"
-                set:html={article.attributes.content}
-              />
+              <p class="leading-relaxed" set:html={attributes.content} />
             </div>
           )
         }
         {
-          article.attributes.content_blocks && (
+          attributes.content_blocks && (
             <div class="flex flex-col gap-4 pb-16">
-              {article.attributes.content_blocks.map((block) => {
+              {attributes.content_blocks.map((block) => {
                 <Debug value={block} />;
                 if (block.image) {
                   return (
@@ -88,7 +81,16 @@ const article = Astro.props;
                   );
                 } else {
                   return block.children.map((_) => {
-                    return <p class={_.bold ? "font-bold leading-relaxed": "leading-relaxed"} set:html={_.text} />;
+                    return (
+                      <p
+                        class={
+                          _.bold
+                            ? "font-bold leading-relaxed"
+                            : "leading-relaxed"
+                        }
+                        set:html={_.text}
+                      />
+                    );
                   });
                 }
               })}

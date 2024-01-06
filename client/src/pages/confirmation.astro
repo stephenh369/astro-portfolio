@@ -1,0 +1,55 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Card from "../components/Card.astro";
+
+---
+<Layout title="Contact">
+  <main
+    transition:animate="slide"
+    class="flex flex-col justify-center px-4 md:px-8 pt-8 pb-24 m-auto text-white"
+  >
+    <div
+      class="flex container bg-container/40 backdrop-filter backdrop-blur-sm shadow-primary rounded-lg mx-auto my-24 items-center justify-center"
+    >
+      <section class="text-white px-12 sm:px-24 lg:px-36 flex flex-col w-full">
+        <h1 class="lg:text-5xl text-4xl text-green-500 text-center font-semibold py-8">Thanks for your message!</h1>
+        <button
+              class="bg-green-500 p-4 mb-8 rounded-lg text-black font-semibold"
+              onclick="history.back()">Back</button>
+      </section>
+    </div>
+    <ul
+      role="list"
+      class="link-card-grid grid sm:grid-cols-2 md:grid-cols-3 w-full gap-8 container mx-auto"
+    >
+      <Card
+        href="/about"
+        title="About"
+        titleClass="text-center"
+        imgUrl="/assets/first-vid-img-no-bg.png"
+      />
+      <Card
+        href="/blog"
+        title="YouTube/Blog"
+        titleClass="text-center"
+        imgUrl="/assets/youtube-logo.png"
+      />
+      <Card
+        href="/portfolio"
+        title="Portfolio"
+        titleClass="text-center"
+        imgUrl="/assets/react-synth.png"
+      />
+    </ul>
+  </main>
+</Layout>
+
+<style>
+  main {
+    width: 992px;
+    max-width: calc(100% - 2rem);
+    @media screen and (min-height: 1080px) {
+      height: 90vh;
+    }
+  }
+</style>
