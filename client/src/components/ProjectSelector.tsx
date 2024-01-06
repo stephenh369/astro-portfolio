@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
+import "./ProjectSelector.css";
 
 interface Project {
   title: string;
@@ -13,9 +14,17 @@ interface ProjectSelectorProps {
 
 const ProjectSelector: React.FC<ProjectSelectorProps> = ({ projects }) => {
   const [selectedProject, setSelectedProject] = useState<number>(0);
+  const selectedProjectRef = useRef<null | HTMLDivElement>(null);
 
-  const handleClick = (index: number) => {
-    setSelectedProject(index);
+  const handleProjectChange = (project: number) => {
+    if (selectedProjectRef.current) {
+      if (selectedProject > projects.length) {
+        selectedProjectRef.current.style.animation = "prevProject .5s forwards";
+      } else {
+        selectedProjectRef.current.style.animation = "nextProject .5s forwards";
+      }
+    }
+    setSelectedProject(project);
   };
 
   return (
@@ -24,10 +33,10 @@ const ProjectSelector: React.FC<ProjectSelectorProps> = ({ projects }) => {
         {projects.map((project, index) => (
           <li
             key={index}
-            onClick={() => handleClick(index)}
+            onClick={() => handleProjectChange(index)}
             onKeyDown={(e) => {
               if (e.keyCode === 13) {
-                handleClick(index);
+                handleProjectChange(index);
               }
             }}
             className="flex items-center cursor-pointer list-none rounded-lg p-4 shadow-primary bg-container/40 backdrop-filter backdrop-blur-sm hover:bg-green-500 hover:text-black focus:bg-green-500 focus:text-black active:bg-green-500 active:text-black"
@@ -37,25 +46,33 @@ const ProjectSelector: React.FC<ProjectSelectorProps> = ({ projects }) => {
           </li>
         ))}
       </ul>
-      <div className="flex container bg-container/40 backdrop-filter backdrop-blur-sm shadow-primary rounded-lg mx-auto mt-12 mb-24 items-center justify-center">
-        <section className="text-white px-8 sm:pl-16 sm:pr-8 flex flex-col sm:flex-row justify-between">
-          <div>
-            <h1 className="lg:text-5xl text-4xl text-green-500 text-center font-semibold pt-8 pb-4">
+      <div
+        ref={selectedProjectRef}
+        onAnimationEnd={() => {
+          if (selectedProjectRef.current) {
+            selectedProjectRef.current.style.animation = "";
+          }
+        }}
+        className="flex container bg-container/40 backdrop-filter backdrop-blur-sm shadow-primary rounded-lg mx-auto mt-12 mb-24 items-center justify-center"
+      >
+        <section className="text-white px-8 flex flex-col lg:flex-row justify-between">
+          <div className="py-8">
+            <h1 className="lg:text-5xl text-4xl text-green-500 text-center font-semibold pb-4">
               {projects[selectedProject].title}
             </h1>
             <p
-              className="pb-8 leading-relaxed"
+              className="lg:pl-8 leading-relaxed"
               dangerouslySetInnerHTML={{
                 __html: projects[selectedProject].description,
               }}
             />
           </div>
 
-          <div className="flex flex-col justify-center gap-4 items-center px-8 py-10">
+          <div className="flex flex-col justify-center gap-4 items-center p-8">
             <img
               src={projects[selectedProject].img}
               alt="Project Image"
-              className="w-100 md:max-w-sm"
+              className="w-100 lg:max-w-sm"
             />
             <a
               className="bg-green-500 p-4 rounded-lg text-black font-semibold"

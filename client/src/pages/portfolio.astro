@@ -38,7 +38,7 @@ const projects = [
 <Layout title="Portfolio">
   <main
     transition:animate="slide"
-    class="flex flex-col justify-center px-4 md:px-8 pt-8 pb-24 m-auto text-white"
+    class="flex flex-col justify-center px-4 md:px-8 py-8 mx-auto my-16 h-full text-white"
   >
     <Nav />
     <ProjectSelector projects={projects} client:load />
@@ -73,8 +73,5 @@ const projects = [
   main {
     width: 992px;
     max-width: calc(100% - 2rem);
-    @media screen and (min-height: 1080px) {
-      height: 90vh;
-    }
   }
 </style>
