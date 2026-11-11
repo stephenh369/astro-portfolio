@@ -1,7 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Card from "../components/Card.astro";
-import Nav from "../components/Nav.astro";
+import Cta from "../components/Cta.astro";
 
 const errors = { name: "", email: "", message: "" };
 if (Astro.request.method === "POST") {
@@ -27,7 +27,7 @@ if (Astro.request.method === "POST") {
     transition:animate="slide"
     class="flex flex-col justify-center px-4 md:px-8 pt-8 pb-24 m-auto text-white"
   >
-    <Nav />
+    <Cta />
     <div
       class="flex container bg-container/40 backdrop-filter backdrop-blur-sm shadow-primary rounded-lg mx-auto my-24 items-center justify-center"
     >

@@ -2,7 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import ProjectSelector from "../components/ProjectSelector";
 import Card from "../components/Card.astro";
-import Nav from "../components/Nav.astro";
+import Cta from "../components/Cta.astro";
 
 const projects = [
   {
@@ -40,7 +40,7 @@ const projects = [
     transition:animate="slide"
     class="flex flex-col justify-center px-4 md:px-8 py-8 mx-auto my-16 h-full text-white"
   >
-    <Nav />
+    <Cta />
     <ProjectSelector projects={projects} client:load />
     <ul
       role="list"
